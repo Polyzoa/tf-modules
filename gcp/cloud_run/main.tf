@@ -33,6 +33,21 @@ resource "google_cloud_run_service" "service-api" {
         ports {
           container_port = 8081
         }
+        startup_probe {
+          initial_delay_seconds = 0
+          timeout_seconds = 240
+          period_seconds = 3
+          failure_threshold = 1
+          tcp_socket {
+            port = 8081
+          }
+        }
+        liveness_probe {
+          http_get {
+            path = var.healthcheck
+            port = 8081
+          }
+        }
         resources {
           limits = {
             cpu    = var.cpu_limit,
