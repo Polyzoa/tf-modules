@@ -23,3 +23,7 @@ variable "memory_limit" {
 variable "execution_environment" {
   default = "gen1"
 }
+
+variable "healthcheck" {
+  default = "/healthcheck"
+}
