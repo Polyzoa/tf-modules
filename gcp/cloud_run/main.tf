@@ -43,6 +43,10 @@ resource "google_cloud_run_service" "service-api" {
           }
         }
         liveness_probe {
+          initial_delay_seconds = 15
+          timeout_seconds = 30
+          period_seconds = 60
+          failure_threshold = 1
           http_get {
             path = var.healthcheck
             port = 8081
